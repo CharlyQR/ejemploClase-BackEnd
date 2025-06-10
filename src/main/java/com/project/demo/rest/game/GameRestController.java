@@ -13,7 +13,7 @@ import java.util.List;
 @RequestMapping("/games")
 public class GameRestController {
 
-    @Autowired
+    @Autowired // Hacer inyección
     private GameRepository gameRepository;
 
     @GetMapping

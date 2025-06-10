@@ -76,8 +76,8 @@ public class OrderRestController {
     @PostMapping("/user/{userId}")
     public ResponseEntity<?> addOrderToUser(@PathVariable Long userId, @RequestBody Order order, HttpServletRequest request) {
         Optional<User> foundUser = userRepository.findById(userId);
-        if(foundUser.isPresent()) {
-            order.setUser(foundUser.get());
+        if(foundUser.isPresent()) { //foundUser nos ayuda a ver si existe el dato (usuario) en la BD
+            order.setUser(foundUser.get()); // foundUser.get, obtiene el usuario con las credenciales exactas y que coinciden.
             Order savedOrder = orderRepository.save(order);
             return new GlobalResponseHandler().handleResponse("Order created successfully",
                     savedOrder, HttpStatus.CREATED, request);

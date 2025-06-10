@@ -36,15 +36,15 @@ public class UserRestController {
             HttpServletRequest request) {
 
         Pageable pageable = PageRequest.of(page-1, size);
-        Page<User> ordersPage = userRepository.findAll(pageable);
+        Page<User> userPage = userRepository.findAll(pageable);
         Meta meta = new Meta(request.getMethod(), request.getRequestURL().toString());
-        meta.setTotalPages(ordersPage.getTotalPages());
-        meta.setTotalElements(ordersPage.getTotalElements());
-        meta.setPageNumber(ordersPage.getNumber() + 1);
-        meta.setPageSize(ordersPage.getSize());
+        meta.setTotalPages(userPage.getTotalPages());
+        meta.setTotalElements(userPage.getTotalElements());
+        meta.setPageNumber(userPage.getNumber() + 1);
+        meta.setPageSize(userPage.getSize());
 
         return new GlobalResponseHandler().handleResponse("Users retrieved successfully",
-                ordersPage.getContent(), HttpStatus.OK, meta);
+                userPage.getContent(), HttpStatus.OK, meta);
     }
 
     @PostMapping
@@ -81,7 +81,7 @@ public class UserRestController {
             return new GlobalResponseHandler().handleResponse("User deleted successfully",
                     foundOrder.get(), HttpStatus.OK, request);
         } else {
-            return new GlobalResponseHandler().handleResponse("Order id " + userId + " not found"  ,
+            return new GlobalResponseHandler().handleResponse("User id " + userId + " not found"  ,
                     HttpStatus.NOT_FOUND, request);
         }
     }
